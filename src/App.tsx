@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react"
+import { FC, useState, useEffect, useRef } from "react"
 import { useMove } from "./hooks"
 import Wall from "./components/wall"
 import Fly from "./components/fly"
@@ -15,8 +15,16 @@ const App: FC = () => {
     []
   )
 
+  const appRef = useRef<HTMLDivElement | null>(null)
+
+  const handleClick = () => {
+    //appRef.current?.requestFullscreen()
+    window.scrollTo(5000, 5000)
+    setPaused(!paused)
+  }
+
   return (
-    <>
+    <div ref={appRef}>
       <Wall paused={paused} move={move} />
       <Posters />
       <div className={`${styles.placeholder} ${paused ? styles.active : ""}`}>
@@ -29,9 +37,9 @@ const App: FC = () => {
         type="button"
         autoFocus={true}
         className={styles.pause}
-        onClick={() => setPaused(!paused)}
+        onClick={handleClick}
       />
-    </>
+    </div>
   )
 }
 
