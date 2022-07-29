@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useState, useEffect } from "react"
+import { useMove } from "./hooks"
+import Wall from "./components/wall"
+import Fly from "./components/fly"
+import Logo from "./components/logo"
+import Poster from "./components/poster"
+import styles from "./app.module.scss"
 
-function App() {
+const App: FC = () => {
+  const move = useMove()
+  const [paused, setPaused] = useState<boolean>(true)
+
+  useEffect(
+    () => document.querySelector("html")?.classList.add(styles.html),
+    []
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Wall paused={paused} move={move} />
+      <Poster />
+      <div className={`${styles.placeholder} ${paused ? styles.active : ""}`}>
+        <Logo />
+      </div>
+      <div className={`${styles.placeholder} ${!paused ? styles.active : ""}`}>
+        <Fly move={move} />
+      </div>
+      <button
+        type="button"
+        autoFocus={true}
+        className={styles.pause}
+        onClick={() => setPaused(!paused)}
+      />
+    </>
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,11 @@
+.figure {
+  transition: all 200ms ease-in;
+  transform: scale(1);
+
+  .img {
+    z-index: 3;
+    position: relative;
+    width: 36px;
+    transition: top 100ms ease, left 100ms ease;
+  }
+}
