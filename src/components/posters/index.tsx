@@ -1,8 +1,5 @@
 import { CSSProperties, FC } from "react"
 import styles from "./posters.module.scss"
-import Poster1 from "./poster1.png"
-import Poster2 from "./poster2.png"
-
 interface Poster {
   src: string
   top: number
@@ -12,16 +9,28 @@ interface Poster {
 
 export const posters: Poster[] = [
   {
-    src: Poster1,
+    src: require("./poster1.png"),
     top: 4000,
     left: 4000,
     rotation: -1,
   },
   {
-    src: Poster2,
+    src: require("./poster2.png"),
     top: 6000,
     left: 6000,
     rotation: 3,
+  },
+  {
+    src: require("./poster3.png"),
+    top: 1000,
+    left: 1000,
+    rotation: 1,
+  },
+  {
+    src: require("./poster4.png"),
+    top: 8000,
+    left: 2000,
+    rotation: -2,
   },
 ]
 

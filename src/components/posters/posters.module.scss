@@ -1,7 +1,9 @@
 .poster {
   z-index: 1;
   position: absolute;
-  width: 600px;
+  width: 560px;
+  height: 560px;
+  object-fit: contain;
   border-radius: 10px;
   filter: drop-shadow(2px 4px 6px rgba(black, 0.8));
 }
