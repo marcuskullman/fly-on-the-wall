@@ -121,7 +121,9 @@ export const useMove = (): Move | void => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state])
 
-  if (Object.values(move).some(value => value)) {
+  const { lastDirectionWasVertical: filtered, ...rest } = move
+
+  if (Object.values(rest).some(value => value)) {
     return move as Move
   }
 }
