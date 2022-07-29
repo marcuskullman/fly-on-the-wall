@@ -1,15 +1,18 @@
 import { FC, useEffect, useRef } from "react"
-import { Move } from "../../hooks/move"
+import { Move } from "../../hooks/use-move"
+import { useAppContext } from "../../hooks"
 import styles from "./wall.module.scss"
 interface Props {
   paused: boolean
   move: Move | void
 }
 
-// Config
-const SPEED = 5
-
 const Wall: FC<Props> = ({ move, paused }) => {
+  const [
+    {
+      config: { speed },
+    },
+  ] = useAppContext()
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
   useEffect(() => {
@@ -26,12 +29,12 @@ const Wall: FC<Props> = ({ move, paused }) => {
 
       if (vertical) {
         scrollTo({
-          top: add ? scrollY + SPEED : scrollY - SPEED,
+          top: add ? scrollY + speed : scrollY - speed,
           behavior: "auto",
         })
       } else {
         scrollTo({
-          left: add ? scrollX + SPEED : scrollX - SPEED,
+          left: add ? scrollX + speed : scrollX - speed,
           behavior: "auto",
         })
       }
@@ -62,7 +65,7 @@ const Wall: FC<Props> = ({ move, paused }) => {
         loop(false, true)
       }
     }
-  }, [move, paused])
+  }, [move, paused, speed])
 
   useEffect(() => window.scrollTo(5000, 5000), [])
 

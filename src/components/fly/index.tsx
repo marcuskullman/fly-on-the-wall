@@ -7,7 +7,7 @@ import {
   CSSProperties,
 } from "react"
 import fly from "./fly.png"
-import { Move } from "../../hooks/move"
+import { Move } from "../../hooks/use-move"
 import styles from "./fly.module.scss"
 
 interface Props {
