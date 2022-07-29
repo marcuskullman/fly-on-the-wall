@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import Posters, { posters } from "."
+import Posters, { defaultPosters } from "."
 
 describe("COMPONENT: Poster", () => {
   test("Renders", () => {
@@ -10,7 +10,7 @@ describe("COMPONENT: Poster", () => {
   })
 
   test("Has all required properties", () => {
-    for (let poster of posters) {
+    for (let poster of defaultPosters) {
       expect(poster.top).toBeGreaterThanOrEqual(0)
       expect(poster.left).toBeLessThanOrEqual(10000)
       expect(poster).toHaveProperty("rotation")

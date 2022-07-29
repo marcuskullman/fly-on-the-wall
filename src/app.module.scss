@@ -9,7 +9,7 @@
   }
 }
 
-.pause,
+// .pause,
 .placeholder {
   position: fixed;
   top: 0;
@@ -22,6 +22,7 @@
 
 .pause {
   z-index: 999;
+  position: relative;
 }
 
 .placeholder {

@@ -1,13 +1,8 @@
-import { CSSProperties, FC } from "react"
+import { CSSProperties, FC, useRef } from "react"
+import { useAppContext } from "../../hooks"
 import styles from "./posters.module.scss"
-interface Poster {
-  src: string
-  top: number
-  left: number
-  rotation: number
-}
 
-export const posters: Poster[] = [
+export const defaultPosters = [
   {
     src: require("./poster1.png"),
     top: 4000,
@@ -34,26 +29,53 @@ export const posters: Poster[] = [
   },
 ]
 
-const Posters: FC = () => (
-  <>
-    {posters.map(({ src, top, left, rotation }: Poster) => {
-      const style: CSSProperties = {
-        top,
-        left,
-        transform: `rotate(${rotation}deg)`,
-      }
+/*const isOverPoster = (x: number, y: number) => {
+  const { scrollX, scrollY } = window
+  const rangeX = scrollX > x - 560 && scrollX < x + 560
+  const rangeY = scrollY > y - 560 && scrollY < y + 560
 
-      return (
-        <img
-          key={src}
-          src={src}
-          alt="Poster"
-          className={styles.poster}
-          style={style}
-        />
-      )
-    })}
-  </>
-)
+  return rangeX && rangeY ? true : false
+}*/
+
+const Posters: FC = () => {
+  // const posterRef = useRef<HTMLImageElement | null>(null)
+  const [{ posters }] = useAppContext({
+    posters: defaultPosters,
+  })
+
+  return (
+    <>
+      {posters?.map(({ src, top, left, rotation }) => {
+        const style: CSSProperties = {
+          top,
+          left,
+          transform: `rotate(${rotation}deg)`,
+        }
+
+        /*
+        const styling = posterRef.current && getComputedStyle(posterRef.current)
+        const width = styling?.getPropertyValue("width")
+        const height = styling?.getPropertyValue("height")
+
+        console.log(width, height)
+
+        const test = isOverPoster(top, left)
+        console.log("Test", test)
+        */
+
+        return (
+          <img
+            // ref={posterRef}
+            key={src}
+            src={src}
+            alt="Poster"
+            className={styles.poster}
+            style={style}
+          />
+        )
+      })}
+    </>
+  )
+}
 
 export default Posters
