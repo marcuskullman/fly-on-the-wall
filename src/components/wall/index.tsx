@@ -66,7 +66,9 @@ const Wall: FC<Props> = ({ move, paused }) => {
 
   useEffect(() => window.scrollTo(5000, 5000), [])
 
-  return <div className={`${styles.wall} ${move ? styles.active : ""}`} />
+  return (
+    <div className={`${styles.wall} ${move && !paused ? styles.active : ""}`} />
+  )
 }
 
 export default Wall

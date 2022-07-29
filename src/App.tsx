@@ -3,7 +3,7 @@ import { useMove } from "./hooks"
 import Wall from "./components/wall"
 import Fly from "./components/fly"
 import Logo from "./components/logo"
-import Poster from "./components/poster"
+import Posters from "./components/posters"
 import styles from "./app.module.scss"
 
 const App: FC = () => {
@@ -18,7 +18,7 @@ const App: FC = () => {
   return (
     <>
       <Wall paused={paused} move={move} />
-      <Poster />
+      <Posters />
       <div className={`${styles.placeholder} ${paused ? styles.active : ""}`}>
         <Logo />
       </div>
