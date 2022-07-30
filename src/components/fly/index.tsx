@@ -11,6 +11,7 @@ import { Move } from "../../hooks/use-move"
 import styles from "./fly.module.scss"
 
 interface Props {
+  paused: boolean
   move: Move | void
 }
 
@@ -18,7 +19,7 @@ const getTimeout = (): number => 500 * (Math.floor(Math.random() * 6) + 1)
 const getRotation = (): string =>
   `rotate(${Math.floor(Math.random() * (180 - -180 + 1)) + -180}deg)`
 
-const Fly: FC<Props> = ({ move }) => {
+const Fly: FC<Props> = ({ move, paused }) => {
   const [state, setState] = useReducer(
     (state: CSSProperties, action: CSSProperties): CSSProperties => ({
       ...state,
@@ -82,10 +83,10 @@ const Fly: FC<Props> = ({ move }) => {
         style(90)
       }
     }
-  }, [move, wait])
+  }, [move, paused, wait])
 
   return (
-    <figure className={styles.figure}>
+    <figure className={`${styles.figure} ${paused ? styles.paused : ""}`}>
       <img
         ref={flyRef}
         src={fly}

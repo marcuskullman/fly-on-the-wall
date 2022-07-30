@@ -3,40 +3,29 @@ import { useMove } from "./hooks"
 import Wall from "./components/wall"
 import Fly from "./components/fly"
 import Logo from "./components/logo"
-import Posters from "./components/posters"
 import styles from "./app.module.scss"
 
 const App: FC = () => {
   const move = useMove()
   const [paused, setPaused] = useState<boolean>(true)
 
-  useEffect(
-    () => document.querySelector("html")?.classList.add(styles.html),
-    []
-  )
-
-  const handleClick = () => {
+  useEffect(() => {
+    document.querySelector("html")?.classList.add(styles.html)
     window.scrollTo(5000, 5000)
-    setPaused(!paused)
-  }
+  }, [])
 
   return (
     <>
       <Wall paused={paused} move={move} />
-      <Posters />
-      <div className={`${styles.placeholder} ${paused ? styles.active : ""}`}>
-        <Logo />
-      </div>
-      <div className={`${styles.placeholder} ${!paused ? styles.active : ""}`}>
-        <Fly move={move} />
-      </div>
+      <Fly paused={paused} move={move} />
+      <Logo paused={paused} />
       <button
         type="button"
         autoFocus={true}
-        className={styles.pause}
-        onClick={handleClick}
+        className={styles.button}
+        onClick={() => setPaused(!paused)}
       >
-        Start
+        {paused ? "Start" : "Pause"}
       </button>
     </>
   )

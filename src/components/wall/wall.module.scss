@@ -1,4 +1,5 @@
 .wall {
+  z-index: 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -6,11 +7,10 @@
   height: 10000px;
   background: url("./wall.png") center center repeat;
   background-size: 500px 500px;
-  z-index: 1;
 
   &:after {
     content: "";
-    z-index: 3;
+    z-index: 2;
     position: fixed;
     top: 0;
     left: 0;
@@ -20,7 +20,7 @@
     transition: all 200ms ease;
   }
 
-  &.active:after {
+  &.moving:after {
     box-shadow: 0 0 200px rgba(0, 0, 0, 1) inset;
   }
 }

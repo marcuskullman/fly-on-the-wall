@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef } from "react"
 import { Move } from "../../hooks/use-move"
 import { useAppContext } from "../../hooks"
+import Posters from "../posters"
 import styles from "./wall.module.scss"
 interface Props {
   paused: boolean
@@ -68,7 +69,9 @@ const Wall: FC<Props> = ({ move, paused }) => {
   }, [move, paused, speed])
 
   return (
-    <div className={`${styles.wall} ${move && !paused ? styles.active : ""}`} />
+    <div className={`${styles.wall} ${move && !paused ? styles.moving : ""}`}>
+      <Posters />
+    </div>
   )
 }
 
