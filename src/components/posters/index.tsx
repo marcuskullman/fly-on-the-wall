@@ -1,15 +1,13 @@
 import { CSSProperties, FC, useEffect, useState, useCallback } from "react"
-import { useMove } from "../../hooks"
+import { useMove, useAppContext } from "../../hooks"
 import styles from "./posters.module.scss"
 interface Poster {
   src: string
   top: number
   left: number
   rotation: number
-  found?: boolean
 }
 
-// TODO Width/ height of image is 560x560 in the code
 export const defaultPosters = [
   {
     src: require("./poster1.png"),
@@ -39,6 +37,7 @@ export const defaultPosters = [
 
 const Posters: FC = () => {
   const move = useMove()
+  const [, dispatch] = useAppContext()
   const [posters, setPosters] = useState<Poster[]>(defaultPosters)
 
   const hoverPoster = (top: number, left: number): boolean => {
@@ -52,28 +51,43 @@ const Posters: FC = () => {
   }
 
   const callback = useCallback(() => {
-    for (let i = 0; i < posters.length; i++) {
-      const poster = posters[i]
-
-      if (poster.found) break
-
+    for (const poster of posters) {
       const { top, left } = poster
       const hover = hoverPoster(top, left)
 
       if (hover) {
         const clone = [...posters]
-        clone[i].found = true
+        const index = clone.indexOf(poster)
+        clone.splice(index, 1)
+
         setPosters(clone)
+
+        if (!clone.length) {
+          dispatch({ level: 2 })
+        }
+
         break
       }
     }
-  }, [posters])
+  }, [posters, dispatch])
 
   useEffect(() => callback, [move, callback])
 
   return (
     <>
-      {posters?.map(({ src, top, left, rotation, found }: Poster) => {
+      <h1
+        style={{
+          zIndex: 9999,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          color: "white",
+          fontSize: 100,
+        }}
+      >
+        Find the posters: {posters.length}
+      </h1>
+      {posters?.map(({ src, top, left, rotation }: Poster) => {
         const style: CSSProperties = {
           top,
           left,
@@ -85,7 +99,7 @@ const Posters: FC = () => {
             key={src}
             src={src}
             alt="Poster"
-            className={`${styles.poster} ${found ? styles.found : ""}`}
+            className={styles.poster}
             style={style}
           />
         )

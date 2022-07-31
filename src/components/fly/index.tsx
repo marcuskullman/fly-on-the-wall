@@ -8,10 +8,10 @@ import {
 } from "react"
 import fly from "./fly.png"
 import { Move } from "../../hooks/use-move"
+import { useAppContext } from "../../hooks"
 import styles from "./fly.module.scss"
 
 interface Props {
-  paused: boolean
   move: Move | void
 }
 
@@ -19,7 +19,8 @@ const getTimeout = (): number => 500 * (Math.floor(Math.random() * 6) + 1)
 const getRotation = (): string =>
   `rotate(${Math.floor(Math.random() * (180 - -180 + 1)) + -180}deg)`
 
-const Fly: FC<Props> = ({ move, paused }) => {
+const Fly: FC<Props> = ({ move }) => {
+  const [{ paused }] = useAppContext()
   const [state, setState] = useReducer(
     (state: CSSProperties, action: CSSProperties): CSSProperties => ({
       ...state,

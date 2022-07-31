@@ -3,7 +3,7 @@ import Logo from "./"
 
 describe("COMPONENT: Logo", () => {
   test("Renders", () => {
-    render(<Logo paused={true} />)
+    render(<Logo />)
     const image = screen.getByRole("img") as HTMLImageElement
     expect(image).toBeVisible()
     expect(image).toHaveAttribute("src", "logo.png")

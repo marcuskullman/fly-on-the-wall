@@ -1,17 +1,21 @@
-import { FC, useEffect, useRef } from "react"
+import { FC, useEffect, useRef, Suspense, lazy } from "react"
 import { Move } from "../../hooks/use-move"
 import { useAppContext } from "../../hooks"
-import Posters from "../posters"
 import styles from "./wall.module.scss"
+
+const Level = lazy(() => import("../level"))
+const Posters = lazy(() => import("../posters"))
+
 interface Props {
-  paused: boolean
   move: Move | void
 }
 
-const Wall: FC<Props> = ({ move, paused }) => {
+const Wall: FC<Props> = ({ move }) => {
   const [
     {
       config: { speed },
+      level,
+      paused,
     },
   ] = useAppContext()
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
@@ -70,7 +74,10 @@ const Wall: FC<Props> = ({ move, paused }) => {
 
   return (
     <div className={`${styles.wall} ${move && !paused ? styles.moving : ""}`}>
-      <Posters />
+      <Suspense fallback={null}>
+        {!paused && <Level />}
+        {!paused && level === 1 && <Posters />}
+      </Suspense>
     </div>
   )
 }
