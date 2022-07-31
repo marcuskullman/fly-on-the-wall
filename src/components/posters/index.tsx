@@ -1,7 +1,15 @@
-import { CSSProperties, FC, useRef } from "react"
-import { useAppContext } from "../../hooks"
+import { CSSProperties, FC, useEffect, useState, useCallback } from "react"
+import { useMove } from "../../hooks"
 import styles from "./posters.module.scss"
+interface Poster {
+  src: string
+  top: number
+  left: number
+  rotation: number
+  found?: boolean
+}
 
+// TODO Width/ height of image is 560x560 in the code
 export const defaultPosters = [
   {
     src: require("./poster1.png"),
@@ -29,47 +37,55 @@ export const defaultPosters = [
   },
 ]
 
-/*const isOverPoster = (x: number, y: number) => {
-  const { scrollX, scrollY } = window
-  const rangeX = scrollX > x - 560 && scrollX < x + 560
-  const rangeY = scrollY > y - 560 && scrollY < y + 560
-
-  return rangeX && rangeY ? true : false
-}*/
-
 const Posters: FC = () => {
-  // const posterRef = useRef<HTMLImageElement | null>(null)
-  const [{ posters }] = useAppContext({
-    posters: defaultPosters,
-  })
+  const move = useMove()
+  const [posters, setPosters] = useState<Poster[]>(defaultPosters)
+
+  const hoverPoster = (top: number, left: number): boolean => {
+    const { scrollX, scrollY, innerWidth, innerHeight } = window
+    const x = scrollX + innerWidth / 2
+    const y = scrollY + innerHeight / 2
+    const rangeX = x > left && x < left + 560
+    const rangeY = y > top && y < top + 560
+
+    return rangeX && rangeY
+  }
+
+  const callback = useCallback(() => {
+    for (let i = 0; i < posters.length; i++) {
+      const poster = posters[i]
+
+      if (poster.found) break
+
+      const { top, left } = poster
+      const hover = hoverPoster(top, left)
+
+      if (hover) {
+        const clone = [...posters]
+        clone[i].found = true
+        setPosters(clone)
+        break
+      }
+    }
+  }, [posters])
+
+  useEffect(() => callback, [move, callback])
 
   return (
     <>
-      {posters?.map(({ src, top, left, rotation }) => {
+      {posters?.map(({ src, top, left, rotation, found }: Poster) => {
         const style: CSSProperties = {
           top,
           left,
           transform: `rotate(${rotation}deg)`,
         }
 
-        /*
-        const styling = posterRef.current && getComputedStyle(posterRef.current)
-        const width = styling?.getPropertyValue("width")
-        const height = styling?.getPropertyValue("height")
-
-        console.log(width, height)
-
-        const test = isOverPoster(top, left)
-        console.log("Test", test)
-        */
-
         return (
           <img
-            // ref={posterRef}
             key={src}
             src={src}
             alt="Poster"
-            className={styles.poster}
+            className={`${styles.poster} ${found ? styles.found : ""}`}
             style={style}
           />
         )
