@@ -1,11 +1,16 @@
-import { CSSProperties, FC, useEffect, useState, useCallback } from "react"
-import { useMove, useAppContext } from "../../hooks"
+import { CSSProperties, FC, useEffect, useState } from "react"
+import { useAppContext } from "../../hooks"
 import styles from "./posters.module.scss"
 interface Poster {
   src: string
   top: number
   left: number
   rotation: number
+}
+
+const types = {
+  scroll: "scroll",
+  resize: "resize",
 }
 
 export const defaultPosters = [
@@ -36,21 +41,24 @@ export const defaultPosters = [
 ]
 
 const Posters: FC = () => {
-  const move = useMove()
   const [, dispatch] = useAppContext()
   const [posters, setPosters] = useState<Poster[]>(defaultPosters)
+  const [{ width, height }, setWindowSize] = useState<{
+    width: number
+    height: number
+  }>({ width: 0, height: 0 })
 
   const hoverPoster = (top: number, left: number): boolean => {
-    const { scrollX, scrollY, innerWidth, innerHeight } = window
-    const x = scrollX + innerWidth / 2
-    const y = scrollY + innerHeight / 2
-    const rangeX = x > left && x < left + 560
-    const rangeY = y > top && y < top + 560
+    const { scrollX, scrollY } = window
+    const x = scrollX + width
+    const y = scrollY + height
+    const rangeX = x > left - 280 && x < left + 280
+    const rangeY = y > top - 280 && y < top + 280
 
     return rangeX && rangeY
   }
 
-  const callback = useCallback(() => {
+  const scrollHandler = (): void => {
     for (const poster of posters) {
       const { top, left } = poster
       const hover = hoverPoster(top, left)
@@ -69,9 +77,26 @@ const Posters: FC = () => {
         break
       }
     }
-  }, [posters, dispatch])
+  }
 
-  useEffect(() => callback, [move, callback])
+  const resizeHandler = () => {
+    const { innerHeight, innerWidth } = window
+
+    setWindowSize({ width: innerWidth / 2, height: innerHeight / 2 })
+  }
+
+  useEffect(() => {
+    resizeHandler()
+
+    const { scroll, resize } = types
+    window.addEventListener(scroll, scrollHandler, { passive: false })
+    window.addEventListener(resize, resizeHandler, { passive: false })
+
+    return () => {
+      window.removeEventListener(scroll, scrollHandler)
+      window.removeEventListener(resize, resizeHandler)
+    }
+  })
 
   return (
     <>
