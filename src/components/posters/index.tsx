@@ -52,8 +52,8 @@ const Posters: FC = () => {
     const { scrollX, scrollY } = window
     const x = scrollX + width
     const y = scrollY + height
-    const rangeX = x > left - 280 && x < left + 280
-    const rangeY = y > top - 280 && y < top + 280
+    const rangeX = x > left && x < left + 560
+    const rangeY = y > top && y < top + 560
 
     return rangeX && rangeY
   }
