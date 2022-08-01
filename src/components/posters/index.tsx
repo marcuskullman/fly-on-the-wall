@@ -6,6 +6,7 @@ interface Poster {
   top: number
   left: number
   rotation: number
+  found?: boolean
 }
 
 const types = {
@@ -68,11 +69,15 @@ const Posters: FC = () => {
         const index = clone.indexOf(poster)
         clone.splice(index, 1)
 
-        setPosters(clone)
+        poster.found = true
 
-        if (!clone.length) {
-          dispatch({ level: 2 })
-        }
+        setTimeout(() => {
+          setPosters(clone)
+
+          if (!clone.length) {
+            dispatch({ level: 2 })
+          }
+        }, 800)
 
         break
       }
@@ -112,7 +117,7 @@ const Posters: FC = () => {
       >
         Find the posters: {posters.length}
       </h1>
-      {posters?.map(({ src, top, left, rotation }: Poster) => {
+      {posters?.map(({ src, top, left, rotation, found }: Poster) => {
         const style: CSSProperties = {
           top,
           left,
@@ -124,7 +129,7 @@ const Posters: FC = () => {
             key={src}
             src={src}
             alt="Poster"
-            className={styles.poster}
+            className={`${styles.poster} ${found ? styles.found : ""}`}
             style={style}
           />
         )
