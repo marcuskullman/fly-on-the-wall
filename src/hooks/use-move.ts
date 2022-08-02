@@ -6,7 +6,6 @@ import {
   KeyboardEventHandler,
   MouseEvent,
   MouseEventHandler,
-  EventHandler,
 } from "react"
 
 interface State {
