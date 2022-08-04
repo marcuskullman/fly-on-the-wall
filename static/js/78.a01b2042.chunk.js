@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfly_on_the_wall=self.webpackChunkfly_on_the_wall||[]).push([[78],{78:function(e,l,t){t.r(l);var n=t(885),o=t(468),i=t(184);l.default=function(){var e=(0,o.b)(),l=(0,n.Z)(e,1)[0].level;return(0,i.jsx)("h1",{style:{zIndex:9999,position:"fixed",top:0,right:0,color:"white",fontSize:50},children:"Level: ".concat(l)})}}}]);
+//# sourceMappingURL=78.a01b2042.chunk.js.map

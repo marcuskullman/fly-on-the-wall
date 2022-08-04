@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/fly-on-the-wall/static/css/main.f22361c0.css",
+    "main.js": "/fly-on-the-wall/static/js/main.1f23a913.js",
+    "static/js/78.a01b2042.chunk.js": "/fly-on-the-wall/static/js/78.a01b2042.chunk.js",
+    "static/css/758.b9a35fbb.chunk.css": "/fly-on-the-wall/static/css/758.b9a35fbb.chunk.css",
+    "static/js/758.c1a910c4.chunk.js": "/fly-on-the-wall/static/js/758.c1a910c4.chunk.js",
+    "static/js/787.3f8c545e.chunk.js": "/fly-on-the-wall/static/js/787.3f8c545e.chunk.js",
+    "static/media/logo.png": "/fly-on-the-wall/static/media/logo.ea7d7368935c2dac766c.png",
+    "static/media/wall.png": "/fly-on-the-wall/static/media/wall.c0d294edea1cb5f59226.png",
+    "static/media/fly.png": "/fly-on-the-wall/static/media/fly.8640b7a93165b95bcb81.png",
+    "static/media/poster1.png": "/fly-on-the-wall/static/media/poster1.c652a21a92baf32fc18a.png",
+    "static/media/poster2.png": "/fly-on-the-wall/static/media/poster2.b060db43a8f49ec10a93.png",
+    "static/media/poster4.png": "/fly-on-the-wall/static/media/poster4.9127b1b5e60a6692f60a.png",
+    "static/media/poster3.png": "/fly-on-the-wall/static/media/poster3.34f235ea394f4db01e4c.png",
+    "index.html": "/fly-on-the-wall/index.html",
+    "main.f22361c0.css.map": "/fly-on-the-wall/static/css/main.f22361c0.css.map",
+    "main.1f23a913.js.map": "/fly-on-the-wall/static/js/main.1f23a913.js.map",
+    "78.a01b2042.chunk.js.map": "/fly-on-the-wall/static/js/78.a01b2042.chunk.js.map",
+    "758.b9a35fbb.chunk.css.map": "/fly-on-the-wall/static/css/758.b9a35fbb.chunk.css.map",
+    "758.c1a910c4.chunk.js.map": "/fly-on-the-wall/static/js/758.c1a910c4.chunk.js.map",
+    "787.3f8c545e.chunk.js.map": "/fly-on-the-wall/static/js/787.3f8c545e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f22361c0.css",
+    "static/js/main.1f23a913.js"
+  ]
+}
